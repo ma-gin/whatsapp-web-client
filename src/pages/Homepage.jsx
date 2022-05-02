@@ -8,7 +8,7 @@ export default function Homepage() {
                 Register
             </Button>
             <Button>
-                Log in
+                Log in pls
             </Button>
         </React.Fragment>
     )

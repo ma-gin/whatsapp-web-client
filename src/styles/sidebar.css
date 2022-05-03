@@ -12,7 +12,24 @@
 
 .user-picture {
     border-radius: 50%;
-   width: 50px;
+   width: 40px;
     z-index: 1;
     min-height: 40px;
+    max-height: 40px;
 }
+
+.chatBack{
+    background-image: url("https://i.pinimg.com/236x/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e--sultan.jpg");
+    position: center;
+    object-fit:cover ;
+    height: 90vh;
+}
+
+.message{
+    height: 5vh;
+}
+
+.message-input{
+    width: 100%;
+}
+

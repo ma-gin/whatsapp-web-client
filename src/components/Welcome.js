@@ -24,16 +24,17 @@ export default function Welcome() {
 // Login Component**************
 
 function Login({ registerView }) {
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const userLogin = async (e) => {
     e.preventDefault()
-    const user = { username, password }
+    const user = { email, password }
     try {
       let response = await fetch(`${process.env.REACT_APP_USERS_URL}session`, {
         method: "POST",
         body: JSON.stringify(user),
+        credentials: "include",
         headers: {
           "Content-type": "application/json",
         },
@@ -65,12 +66,12 @@ function Login({ registerView }) {
       </p>
       <Form onSubmit={(e) => userLogin(e)}>
         <Form.Group className="mt-3">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             required
             size="md"
-            placeholder="Enter Username"
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Label className="mt-3">Password</Form.Label>
           <Form.Control
@@ -104,6 +105,7 @@ function Register({ loginView }) {
       let response = await fetch(`${process.env.REACT_APP_USERS_URL}account`, {
         method: "POST",
         body: JSON.stringify(newUser),
+        credentials: "include",
         headers: {
           "Content-type": "application/json",
         },

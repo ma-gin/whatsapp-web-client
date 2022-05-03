@@ -10,7 +10,8 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" exact element={<Homepage />} />
+        <Route path="/" exact element={<Welcome />} />
+        <Route path="/welcome" exact element={<Welcome />} />
       </Routes>
       <Footer />
     </Router>

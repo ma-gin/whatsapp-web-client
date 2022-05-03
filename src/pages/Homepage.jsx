@@ -1,16 +1,14 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
+import Sidebar from '../components/Sidebar'
+
 
 export default function Homepage() {
     return (
-        <React.Fragment>
-            <Button>
-                Register
-            </Button>
-            <Button>
-                Log in pls
-            </Button>
-        </React.Fragment>
+        <>
+            <Sidebar />
+
+        </>
     )
 }
 

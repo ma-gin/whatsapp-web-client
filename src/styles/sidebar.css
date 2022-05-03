@@ -9,3 +9,9 @@
     border: 1px solid black !important;
     border-radius: 5px !important;
 }
+
+.user-picture {
+    border-radius: 50%;
+   width: 50px;
+    z-index: 1;
+}

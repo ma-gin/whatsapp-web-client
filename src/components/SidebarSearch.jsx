@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
     FormControl,
     Container,
@@ -15,6 +15,8 @@ import "../styles/sidebar.css"
 export default function SidebarSearch() {
 
     const [searchedUsers, setSearchedUsers] = useState(undefined)
+
+    const [chats, setChats] = useState(undefined)
 
     const URL = process.env.REACT_APP_SEARCH_URL
 
@@ -35,6 +37,55 @@ export default function SidebarSearch() {
             console.log(error)
         }
     }
+
+    const createChat = async(e) => {
+        try {
+            let response = await fetch(`${process.env.REACT_APP_CREATE_CHAT}chats`, {
+              method: "POST",
+              body: JSON.stringify({recipient: e}),
+              credentials: "include",
+              headers: {
+                "Content-type": "application/json",
+              },
+            })
+            if (response.ok) {
+              console.log(response)
+            } else {
+              console.log("login failed")
+              if (response.status === 400) {
+                console.log("bad request")
+              }
+              if (response.status === 404) {
+                console.log("page not found")
+              }
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
+
+    const existingChats = async (event) => {
+        try {
+            console.log('search')
+            const response = await fetch(`${process.env.REACT_APP_CREATE_CHAT}chats`, {
+                credentials: "include"
+            })
+            if (response.ok) {
+                const data = await response.json()
+                setChats(data)
+                console.log(data)
+            } else {
+                console.log("error on fetching users")
+                setSearchedUsers(undefined)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(()=> {
+existingChats()
+    }, [searchedUsers])
 
     return (
         <Container className={"p-0"}>
@@ -58,13 +109,23 @@ export default function SidebarSearch() {
             <Row>
                 <Col>
                     {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map(user => (
-                        <div>{user.username}</div>
+                        <div onClick={() => {createChat(user._id); console.log(user)}}>{user.username}</div>
                         // <ListGroup>
                         //     <ListGroup.Item>
                         //         <Link to={`/${chat.id}`}>{chat.title}</Link>
                         //     </ListGroup.Item>
                         // </ListGroup>
                     ))}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                {chats && chats.map(chat => (
+                    <div className="d-flex mt-2 align-items-center">
+                         <img src={chat.members[0].avatar} alt={"User logo"} className={"user-picture  me-2"} ></img>
+                         <p>{chat.members[0].username}</p>
+                    </div>
+                ))}
                 </Col>
             </Row>
         </Container>

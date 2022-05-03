@@ -18,7 +18,12 @@ export default function App() {
         <Route
           path="/"
           exact
-          element={(access && <Homepage />) || (!access && <Welcome />)}
+          element={ <Welcome />}
+        />
+         <Route
+          path="/homepage"
+          exact
+          element={ <Homepage />}
         />
       </Routes>
     </Router>

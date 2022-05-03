@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Form, Button } from "react-bootstrap"
+import { Link, useNavigate } from "react-router-dom"
 import "../styles/welcome.css"
 
 export default function Welcome() {
@@ -97,6 +98,8 @@ function Register({ loginView }) {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
 
+  const navigate = useNavigate()
+
   const userRegister = async (e) => {
     e.preventDefault()
     const newUser = { username, password, email }
@@ -112,6 +115,7 @@ function Register({ loginView }) {
       })
       if (response.ok) {
         console.log(response)
+        navigate("/homepage")
       } else {
         alert("registration failed")
         if (response.status === 400) {
@@ -164,7 +168,6 @@ function Register({ loginView }) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-
         <Button type="submit" className="mt-4" variant="success">
           Sign Up
         </Button>

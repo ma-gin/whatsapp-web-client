@@ -73,10 +73,8 @@ export default function SidebarSearch() {
             if (response.ok) {
                 const data = await response.json()
                 setChats(data)
-                console.log(data)
             } else {
                 console.log("error on fetching users")
-                setSearchedUsers(undefined)
             }
         } catch (error) {
             console.log(error)
@@ -109,7 +107,7 @@ existingChats()
             <Row>
                 <Col>
                     {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map(user => (
-                        <div onClick={() => {createChat(user._id); console.log(user)}}>{user.username}</div>
+                        <div onClick={async() => {await createChat(user._id); console.log(user); existingChats()}}>{user.username}</div>
                         // <ListGroup>
                         //     <ListGroup.Item>
                         //         <Link to={`/${chat.id}`}>{chat.title}</Link>

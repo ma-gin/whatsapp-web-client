@@ -14,20 +14,22 @@ import "../styles/sidebar.css"
 
 export default function SidebarSearch() {
 
-    const [search, setSearch] = useState("")
+    const [searchedUsers, setSearchedUsers] = useState(undefined)
 
-    const URL = ""
+    const URL = process.env.REACT_APP_SEARCH_URL
 
-    const searchChat = async () => {
+    const searchChat = async (event) => {
         try {
             console.log('search')
-            const response = await fetch(`URL${search}`)
+            const response = await fetch(`${URL}?q=`+ event, {
+                credentials: "include"
+            })
             if (response.ok) {
-                const { data } = await response.json()
-                setSearch(data)
-                console.log(data)
+                const data = await response.json()
+                setSearchedUsers(data)
             } else {
                 console.log("error on fetching users")
+                setSearchedUsers(undefined)
             }
         } catch (error) {
             console.log(error)
@@ -40,14 +42,14 @@ export default function SidebarSearch() {
                 <Col>
                     <div className="search-input d-flex justify-content-center align-items-center mt-3 ps-3 p-1" >
                         <BsSearch
-                            onClick={e => searchChat(search)} className={"me-1"} />
+                            className={"me-1"} />
                         <InputGroup className="w-100 m-0 p-0">
                             <FormControl
                                 type="search"
                                 placeholder="Search"
                                 className="border-0"
                                 aria-label="Search chat or start a new one"
-                                onChange={e => setSearch(e.target.value)}
+                                onChange={e => searchChat(e.target.value)}
                             />
                         </InputGroup>
                     </div>
@@ -55,13 +57,14 @@ export default function SidebarSearch() {
             </Row>
             <Row>
                 <Col>
-                    {/* {data.map(song => (
-                        <ListGroup>
-                            <ListGroup.Item>
-                                <Link to={`/${chat.id}`}>{chat.title}</Link>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    ))} */}
+                    {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map(user => (
+                        <div>{user.username}</div>
+                        // <ListGroup>
+                        //     <ListGroup.Item>
+                        //         <Link to={`/${chat.id}`}>{chat.title}</Link>
+                        //     </ListGroup.Item>
+                        // </ListGroup>
+                    ))}
                 </Col>
             </Row>
         </Container>

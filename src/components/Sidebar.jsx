@@ -4,8 +4,11 @@ import SidebarSearch from './SidebarSearch.jsx'
 import SidebarChat from './SidebarChat'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import "../styles/sidebar.css"
+import { useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
+
+    const navigate = useNavigate()
 
     const userLogout = () => {
         try {
@@ -13,6 +16,7 @@ export default function Sidebar() {
                 method: "DELETE",
                 credentials: "include",
             })
+            navigate("/")
         } catch (error) {
             console.log(error)
         }

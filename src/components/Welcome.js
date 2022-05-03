@@ -27,6 +27,7 @@ export default function Welcome() {
 function Login({ registerView }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const userLogin = async (e) => {
     e.preventDefault()
@@ -42,6 +43,7 @@ function Login({ registerView }) {
       })
       if (response.ok) {
         console.log(response)
+        navigate("/homepage")
       } else {
         console.log("login failed")
         if (response.status === 400) {

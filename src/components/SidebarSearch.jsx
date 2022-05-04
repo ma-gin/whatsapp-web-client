@@ -106,8 +106,8 @@ existingChats()
             </Row>
             <Row>
                 <Col>
-                    {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map(user => (
-                        <div onClick={async() => {await createChat(user._id); console.log(user); existingChats()}}>{user.username}</div>
+                    {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map((user, idx) => (
+                        <div key={idx}  onClick={async() => {await createChat(user._id); console.log(user); existingChats()}}>{user.username}</div>
                         // <ListGroup>
                         //     <ListGroup.Item>
                         //         <Link to={`/${chat.id}`}>{chat.title}</Link>
@@ -118,8 +118,8 @@ existingChats()
             </Row>
             <Row>
                 <Col>
-                {chats && chats.map(chat => (
-                    <div className="d-flex mt-2 align-items-center">
+                {chats && chats.map((chat, idx) => (
+                    <div key={idx} className="d-flex mt-2 align-items-center">
                          <img src={chat.members[0].avatar} alt={"User logo"} className={"user-picture  me-2"} ></img>
                          <p>{chat.members[0].username}</p>
                     </div>

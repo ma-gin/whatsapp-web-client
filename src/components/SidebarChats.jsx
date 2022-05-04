@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react"
-import {
-  FormControl,
-  Container,
-  Row,
-  Col,
-  Button,
-  InputGroup,
-  ListGroup,
-} from "react-bootstrap"
-
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import FormControl from 'react-bootstrap/FormControl'
+import InputGroup from 'react-bootstrap/InputGroup'
 import { setUserInfoAction } from "../redux/actions"
 import { BsSearch } from "react-icons/bs"
 import "../styles/sidebar.css"
 import { useDispatch, useSelector } from "react-redux"
 
-export default function SidebarSearch() {
+export default function SidebarChats() {
+
   const dispatch = useDispatch()
 
   const [searchedUsers, setSearchedUsers] = useState(undefined)
@@ -113,26 +109,21 @@ export default function SidebarSearch() {
       <Row>
         <Col>
           {searchedUsers === "" ||
-          searchedUsers === undefined ||
-          searchedUsers === " "
+            searchedUsers === undefined ||
+            searchedUsers === " "
             ? null
             : searchedUsers.map((user, idx) => (
-                <div
-                  key={idx}
-                  onClick={async () => {
-                    await createChat(user._id)
-                    console.log(user)
-                    existingChats()
-                    dispatch(setUserInfoAction(user))
-                  }}>
-                  {user.username}
-                </div>
-                // <ListGroup>
-                //     <ListGroup.Item>
-                //         <Link to={`/${chat.id}`}>{chat.title}</Link>
-                //     </ListGroup.Item>
-                // </ListGroup>
-              ))}
+              <div
+                key={idx}
+                onClick={async () => {
+                  await createChat(user._id)
+                  console.log(user)
+                  existingChats()
+                  dispatch(setUserInfoAction(user))
+                }}>
+                {user.username}
+              </div>
+            ))}
         </Col>
       </Row>
       <Row>
@@ -142,8 +133,8 @@ export default function SidebarSearch() {
               const recipient = chat.members.find(
                 (member) => member._id !== "627149a53ddd922e64b0ec4c" //    ._id
               )
-              console.log(chats)
-              console.log(user._id)
+              // console.log(chats)
+              // console.log(user._id)
               return (
                 <div
                   onClick={() => dispatch(setUserInfoAction(recipient))}

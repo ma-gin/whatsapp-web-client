@@ -8,11 +8,17 @@ import {
     InputGroup,
     ListGroup,
 } from "react-bootstrap"
+
+import { setUserInfoAction } from '../redux/actions'
 import { BsSearch } from 'react-icons/bs';
 import "../styles/sidebar.css"
 
 
+import { useDispatch } from "react-redux";
+
 export default function SidebarSearch() {
+
+    const dispatch = useDispatch();
 
     const [searchedUsers, setSearchedUsers] = useState(undefined)
 
@@ -23,7 +29,7 @@ export default function SidebarSearch() {
     const searchChat = async (event) => {
         try {
             console.log('search')
-            const response = await fetch(`${URL}?q=`+ event, {
+            const response = await fetch(`${URL}?q=` + event, {
                 credentials: "include"
             })
             if (response.ok) {
@@ -38,30 +44,30 @@ export default function SidebarSearch() {
         }
     }
 
-    const createChat = async(e) => {
+    const createChat = async (e) => {
         try {
             let response = await fetch(`${process.env.REACT_APP_CREATE_CHAT}chats`, {
-              method: "POST",
-              body: JSON.stringify({recipient: e}),
-              credentials: "include",
-              headers: {
-                "Content-type": "application/json",
-              },
+                method: "POST",
+                body: JSON.stringify({ recipient: e }),
+                credentials: "include",
+                headers: {
+                    "Content-type": "application/json",
+                },
             })
             if (response.ok) {
-              console.log(response)
+                console.log(response)
             } else {
-              console.log("login failed")
-              if (response.status === 400) {
-                console.log("bad request")
-              }
-              if (response.status === 404) {
-                console.log("page not found")
-              }
+                console.log("login failed")
+                if (response.status === 400) {
+                    console.log("bad request")
+                }
+                if (response.status === 404) {
+                    console.log("page not found")
+                }
             }
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        }
     }
 
     const existingChats = async (event) => {
@@ -81,8 +87,8 @@ export default function SidebarSearch() {
         }
     }
 
-    useEffect(()=> {
-existingChats()
+    useEffect(() => {
+        existingChats()
     }, [searchedUsers])
 
     return (
@@ -106,24 +112,26 @@ existingChats()
             </Row>
             <Row>
                 <Col>
-                    {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> : searchedUsers.map((user, idx) => (
-                        <div key={idx}  onClick={async() => {await createChat(user._id); console.log(user); existingChats()}}>{user.username}</div>
-                        // <ListGroup>
-                        //     <ListGroup.Item>
-                        //         <Link to={`/${chat.id}`}>{chat.title}</Link>
-                        //     </ListGroup.Item>
-                        // </ListGroup>
-                    ))}
+                    {(searchedUsers === "" || searchedUsers === undefined || searchedUsers === " ") ? <div></div> :
+                        searchedUsers.map((user, idx) => (
+                            <div key={idx}
+                                onClick={async () => { await createChat(user._id); console.log(user); existingChats(); dispatch(setUserInfoAction(user)); }}>{user.username}</div>
+                            // <ListGroup>
+                            //     <ListGroup.Item>
+                            //         <Link to={`/${chat.id}`}>{chat.title}</Link>
+                            //     </ListGroup.Item>
+                            // </ListGroup>
+                        ))}
                 </Col>
             </Row>
             <Row>
                 <Col>
-                {chats && chats.map((chat, idx) => (
-                    <div key={idx} className="d-flex mt-2 align-items-center">
-                         <img src={chat.members[0].avatar} alt={"User logo"} className={"user-picture  me-2"} ></img>
-                         <p>{chat.members[0].username}</p>
-                    </div>
-                ))}
+                    {chats && chats.map((chat, idx) => (
+                        <div key={idx} className="d-flex mt-2 align-items-center">
+                            <img src={chat.members[0].avatar} alt={"User logo"} className={"user-picture  me-2"} ></img>
+                            <p>{chat.members[0].username}</p>
+                        </div>
+                    ))}
                 </Col>
             </Row>
         </Container>

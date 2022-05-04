@@ -12,8 +12,6 @@ import {
 import { setUserInfoAction } from '../redux/actions'
 import { BsSearch } from 'react-icons/bs';
 import "../styles/sidebar.css"
-
-
 import { useDispatch } from "react-redux";
 
 export default function SidebarSearch() {
@@ -127,7 +125,7 @@ export default function SidebarSearch() {
             <Row>
                 <Col>
                     {chats && chats.map((chat, idx) => (
-                        <div key={idx} className="d-flex mt-2 align-items-center">
+                        <div onClick={()=> dispatch(setUserInfoAction(chat.members[0]))} key={idx} className="d-flex mt-2 align-items-center">
                             <img src={chat.members[0].avatar} alt={"User logo"} className={"user-picture  me-2"} ></img>
                             <p>{chat.members[0].username}</p>
                         </div>

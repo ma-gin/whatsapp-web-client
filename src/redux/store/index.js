@@ -7,12 +7,8 @@ export const initialState = {
   userInfo: {},
 }
 
-const mainReducer = combineReducers({
-  userInfo: userInfoReducer,
-})
-
 const configureStore = createStore(
-  mainReducer,
+  userInfoReducer,
   initialState,
   composeFunction(applyMiddleware(thunk))
 )

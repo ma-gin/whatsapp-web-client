@@ -1,43 +1,42 @@
-import React, { useEffect, useState } from "react"
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import FormControl from 'react-bootstrap/FormControl'
-import InputGroup from 'react-bootstrap/InputGroup'
-import { setUserInfoAction } from "../redux/actions"
-import { BsSearch } from "react-icons/bs"
-import "../styles/sidebar.css"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+import { setUserInfoAction } from "../redux/actions";
+import { BsSearch } from "react-icons/bs";
+import "../styles/sidebar.css";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function SidebarChats() {
+export default function SidebarChats(props) {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const [searchedUsers, setSearchedUsers] = useState(undefined);
 
-  const [searchedUsers, setSearchedUsers] = useState(undefined)
+  const [chats, setChats] = useState(undefined);
 
-  const [chats, setChats] = useState(undefined)
+  const user = useSelector((state) => state.loggedUser);
 
-  const user = useSelector((state) => state.loggedUser)
-
-  const URL = process.env.REACT_APP_SEARCH_URL
+  const URL = process.env.REACT_APP_SEARCH_URL;
 
   const searchChat = async (event) => {
     try {
       // console.log('search')
       const response = await fetch(`${URL}?q=` + event, {
         credentials: "include",
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
-        setSearchedUsers(data)
+        const data = await response.json();
+        setSearchedUsers(data);
       } else {
-        console.log("error on fetching users")
-        setSearchedUsers(undefined)
+        console.log("error on fetching users");
+        setSearchedUsers(undefined);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const createChat = async (e) => {
     try {
@@ -48,22 +47,22 @@ export default function SidebarChats() {
         headers: {
           "Content-type": "application/json",
         },
-      })
+      });
       if (response.ok) {
-        console.log(response)
+        console.log(response);
       } else {
-        console.log("login failed")
+        console.log("login failed");
         if (response.status === 400) {
-          console.log("bad request")
+          console.log("bad request");
         }
         if (response.status === 404) {
-          console.log("page not found")
+          console.log("page not found");
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const existingChats = async (event) => {
     try {
@@ -72,21 +71,21 @@ export default function SidebarChats() {
         {
           credentials: "include",
         }
-      )
+      );
       if (response.ok) {
-        const data = await response.json()
-        setChats(data)
+        const data = await response.json();
+        setChats(data);
       } else {
-        console.log("error on fetching users")
+        console.log("error on fetching users");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    existingChats()
-  }, [searchedUsers])
+    existingChats();
+  }, [searchedUsers]);
 
   return (
     <Container className={"p-0"}>
@@ -107,7 +106,7 @@ export default function SidebarChats() {
         </Col>
       </Row>
       <Row>
-      <Col>
+        <Col>
           {searchedUsers === "" ||
           searchedUsers === undefined ||
           searchedUsers === " "
@@ -116,35 +115,45 @@ export default function SidebarChats() {
                 <div
                   key={idx}
                   onClick={async () => {
-                    await createChat(tUser._id)
-                    console.log(tUser)
-                    existingChats()
-                  }}>
+                    await createChat(tUser._id);
+                    console.log(tUser);
+                    existingChats();
+                  }}
+                >
                   {tUser.username}
                 </div>
               ))}
         </Col>
       </Row>
       <Row>
-      <Col>
+        <Col>
           {chats &&
             chats.map((chat, idx) => (
-              <div key={idx} className="d-flex mt-2 align-items-center">
-                <div
-                  key={idx}
-                  className="d-flex mt-2 align-items-center"
-                >
+              <div
+                key={idx}
+                className="d-flex mt-2 align-items-center"
+                onClick={() => props.setChat(chat._id)}
+              >
+                <div key={idx} className="d-flex mt-2 align-items-center">
                   <img
-                    src={chat.members[0]._id === user._id ? chat.members[1].avatar : chat.members[0].avatar }
+                    src={
+                      chat.members[0]._id === user._id
+                        ? chat.members[1].avatar
+                        : chat.members[0].avatar
+                    }
                     alt={"User logo"}
                     className={"user-picture  me-2"}
                   ></img>
-                  <p>{chat.members[0]._id === user._id ? chat.members[1].username : chat.members[0].username}</p>
+                  <p>
+                    {chat.members[0]._id === user._id
+                      ? chat.members[1].username
+                      : chat.members[0].username}
+                  </p>
                 </div>{" "}
               </div>
             ))}
         </Col>
       </Row>
     </Container>
-  )
+  );
 }

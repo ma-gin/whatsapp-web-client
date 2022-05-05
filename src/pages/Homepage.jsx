@@ -53,12 +53,14 @@ export default function Homepage() {
     <Container>
       <Row>
         <Sidebar chat={chat} setChat={setChat} />
-        <MainChat
-          text={text}
-          setText={setText}
-          handleMessage={handleMessage}
-          messages={messages}
-        />
+        {chat && (
+          <MainChat
+            text={text}
+            setText={setText}
+            handleMessage={handleMessage}
+            messages={messages}
+          />
+        )}
       </Row>
     </Container>
   );

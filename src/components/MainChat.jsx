@@ -20,7 +20,7 @@ export default function MainChat(props) {
         <div className="chatBack">
           {props.messages &&
             props.messages.map((message) => (
-              <p key={message._id}>{message.content.text}</p>
+              <div key={message._id}>{message.content.text}</div>
             ))}
         </div>
         <div className="message d-flex">

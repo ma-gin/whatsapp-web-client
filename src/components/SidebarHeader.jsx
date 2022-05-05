@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 
@@ -29,6 +30,7 @@ export default function SidebarHeader() {
     }
   };
 
+
   return (
     <>
       {user && (
@@ -38,6 +40,7 @@ export default function SidebarHeader() {
             alt={"User logo"}
             className={"user-picture me-2"}
           ></img>
+
           <p>{user.username}</p>
           <div className="d-flex align-items-center ms-auto">
             <BiUser />
@@ -47,5 +50,7 @@ export default function SidebarHeader() {
         </div>
       )}
     </>
+
   );
+
 }

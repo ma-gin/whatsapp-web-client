@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Form, Button } from "react-bootstrap"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import "../styles/welcome.css"
 
 export default function Welcome() {
@@ -140,6 +140,14 @@ function Register({ loginView }) {
       </p>
       <Form onSubmit={(e) => userRegister(e)}>
         <Form.Group className="mt-3">
+          <Form.Label className="mt-3">Email Address</Form.Label>
+          <Form.Control
+            required
+            size="md"
+            type="email"
+            placeholder="Enter Email Address"
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Form.Label>Username</Form.Label>
           <Form.Control
             required
@@ -156,18 +164,6 @@ function Register({ loginView }) {
             size="md"
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
-          />
-          {/* <Form.Label>First Name</Form.Label>
-          <Form.Control size="md" placeholder="Enter First Name" />
-          <Form.Label className="mt-2">Last Name</Form.Label>
-          <Form.Control size="md" placeholder="Enter Last Name" /> */}
-          <Form.Label className="mt-3">Email Address</Form.Label>
-          <Form.Control
-            required
-            size="md"
-            type="email"
-            placeholder="Enter Email Address"
-            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
         <Button type="submit" className="mt-4" variant="success">

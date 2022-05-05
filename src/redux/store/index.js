@@ -1,14 +1,22 @@
-import { createStore, compose, applyMiddleware } from "redux"
+import { createStore, compose, applyMiddleware, combineReducers } from "redux"
 import thunk from "redux-thunk"
-import userInfoReducer from "../reducers/userInfoReducer"
+import loggedUserReducer from "../reducers/loggedUserReducer"
+import activeChatReducer from "../reducers/activeChatReducer"
+
 const composeFunction = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export const initialState = {
   loggedUser: {},
+  activeChat: " "
 }
 
+const mainReducer = combineReducers({
+loggedUser: loggedUserReducer,
+activeChat: activeChatReducer
+})
+
 const configureStore = createStore(
-  userInfoReducer,
+  mainReducer,
   initialState,
   composeFunction(applyMiddleware(thunk))
 )

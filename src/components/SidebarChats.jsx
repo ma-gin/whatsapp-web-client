@@ -4,10 +4,11 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import FormControl from 'react-bootstrap/FormControl'
 import InputGroup from 'react-bootstrap/InputGroup'
-import { setUserInfoAction } from "../redux/actions"
 import { BsSearch } from "react-icons/bs"
 import "../styles/sidebar.css"
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
+import { useDispatch } from "react-redux";
+import { setActiveChatAction } from "../redux/actions"
 
 export default function SidebarChats() {
 
@@ -129,7 +130,7 @@ export default function SidebarChats() {
       <Col>
           {chats &&
             chats.map((chat, idx) => (
-              <div key={idx} className="d-flex mt-2 align-items-center">
+              <div onClick={()=> dispatch(setActiveChatAction(chat._id))} key={idx} className="d-flex mt-2 align-items-center">
                 <div
                   key={idx}
                   className="d-flex mt-2 align-items-center"

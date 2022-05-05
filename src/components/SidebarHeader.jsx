@@ -5,12 +5,16 @@ import "../styles/sidebar.css";
 import { BiUser } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { setUserInfoAction } from "../redux/actions";
 
 export default function SidebarHeader() {
   const [user, setUser] = useState(undefined);
   useEffect(() => {
     userData();
   }, []);
+
+  const dispatch = useDispatch()
 
   const userData = async (event) => {
     try {
@@ -22,6 +26,7 @@ export default function SidebarHeader() {
         const data = await response.json();
         console.log(data);
         setUser(data);
+        dispatch(setUserInfoAction(data))
       } else {
         console.log("error on fetching users");
       }

@@ -6,7 +6,7 @@ const userInfoReducer = (state = initialState.userInfo, action) => {
     case SET_USER_INFO:
       return {
         ...state,
-        userInfo: action.payload
+        loggedUser: action.payload
       }
     default:
       return state

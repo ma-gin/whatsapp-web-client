@@ -17,7 +17,7 @@ export default function SidebarChats() {
 
   const [chats, setChats] = useState(undefined)
 
-  const user = useSelector((state) => state.userInfo)
+  const user = useSelector((state) => state.loggedUser)
 
   const URL = process.env.REACT_APP_SEARCH_URL
 
@@ -107,47 +107,42 @@ export default function SidebarChats() {
         </Col>
       </Row>
       <Row>
-        <Col>
+      <Col>
           {searchedUsers === "" ||
-            searchedUsers === undefined ||
-            searchedUsers === " "
+          searchedUsers === undefined ||
+          searchedUsers === " "
             ? null
-            : searchedUsers.map((user, idx) => (
-              <div
-                key={idx}
-                onClick={async () => {
-                  await createChat(user._id)
-                  console.log(user)
-                  existingChats()
-                  dispatch(setUserInfoAction(user))
-                }}>
-                {user.username}
-              </div>
-            ))}
+            : searchedUsers.map((tUser, idx) => (
+                <div
+                  key={idx}
+                  onClick={async () => {
+                    await createChat(tUser._id)
+                    console.log(tUser)
+                    existingChats()
+                  }}>
+                  {tUser.username}
+                </div>
+              ))}
         </Col>
       </Row>
       <Row>
-        <Col>
+      <Col>
           {chats &&
-            chats.map((chat, idx) => {
-              const recipient = chat.members.find(
-                (member) => member._id !== "627149a53ddd922e64b0ec4c" //    ._id
-              )
-              // console.log(chats)
-              // console.log(user._id)
-              return (
+            chats.map((chat, idx) => (
+              <div key={idx} className="d-flex mt-2 align-items-center">
                 <div
-                  onClick={() => dispatch(setUserInfoAction(recipient))}
                   key={idx}
-                  className="d-flex mt-2 align-items-center">
+                  className="d-flex mt-2 align-items-center"
+                >
                   <img
-                    src={recipient.avatar}
+                    src={chat.members[0]._id === user._id ? chat.members[1].avatar : chat.members[0].avatar }
                     alt={"User logo"}
-                    className={"user-picture  me-2"}></img>
-                  <p>{recipient.username}</p>
-                </div>
-              )
-            })}
+                    className={"user-picture  me-2"}
+                  ></img>
+                  <p>{chat.members[0]._id === user._id ? chat.members[1].username : chat.members[0].username}</p>
+                </div>{" "}
+              </div>
+            ))}
         </Col>
       </Row>
     </Container>

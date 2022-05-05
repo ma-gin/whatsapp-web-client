@@ -41,7 +41,7 @@ export default function MainChat() {
 
     return (
 
-        <Col md={8}>
+        <Col  md={8}>
             <> {recipient &&                
                 <div className="d-flex align-items-center border-bottom border-2">
 

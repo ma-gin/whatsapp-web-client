@@ -91,7 +91,7 @@ export default function SidebarChats() {
   }, [searchedUsers])
 
   return (
-    <Container className={"p-0"}>
+    <Container className={"p-0 "}>
       <Row className={" p-0"}>
         <Col>
           <div className="search-input d-flex justify-content-center align-items-center mt-3 ps-3 p-1">
@@ -109,28 +109,36 @@ export default function SidebarChats() {
         </Col>
       </Row>
       <Row>
-      <Col>
+      <Col className="search-list scroller">
+
           {searchedUsers === "" ||
           searchedUsers === undefined ||
           searchedUsers === " "
             ? null
-            : searchedUsers.map((tUser, idx) => (
+            :<div className="scroller2"style={{backgroundColor: "white", zIndex: 90}}>{searchedUsers.map((tUser, idx) => (
                 <div
                   key={idx}
                   onClick={async () => {
                     await createChat(tUser._id)
                     existingChats()
-                  }}>
-                  {tUser.username}
-                </div>
-              ))}
+                    setSearchedUsers("")
+                  }}
+                  className="d-flex mt-2 align-items-center">
+                     <img
+                    src={tUser.avatar}
+                    alt={"User logo"}
+                    className={"user-picture  me-2"}
+                  ></img>
+                  <p>{tUser.username}</p>
+                </div>))}</div>
+              }
         </Col>
       </Row>
       <Row>
-      <Col>
+      <Col className="scroller">
           {chats &&
             chats.map((chat, idx) => (
-              <div onClick={()=> dispatch(setActiveChatAction(chat._id))} key={idx} className="d-flex mt-2 align-items-center">
+              <div onClick={()=> dispatch(setActiveChatAction(chat._id))} key={idx} className="d-flex mt-2 align-items-center chat-border">
                 <div
                   key={idx}
                   className="d-flex mt-2 align-items-center"

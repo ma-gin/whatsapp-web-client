@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { Form, Button } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
-import "../styles/welcome.css"
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import "../styles/welcome.css";
 
 export default function Welcome() {
-  const [view, setView] = useState(true)
+  const [view, setView] = useState(true);
 
   const changeView = () => {
-    setView(!view)
-  }
+    setView(!view);
+  };
   return (
     <div className="welcome">
       <h1>WhatsApp Web</h1>
@@ -19,19 +19,19 @@ export default function Welcome() {
       )}
       <p>Requires the latest version of WhatsApp</p>
     </div>
-  )
+  );
 }
 
 // Login Component**************
 
 function Login({ registerView }) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const userLogin = async (e) => {
-    e.preventDefault()
-    const user = { email, password }
+    e.preventDefault();
+    const user = { email, password };
     try {
       let response = await fetch(`${process.env.REACT_APP_USERS_URL}session`, {
         method: "POST",
@@ -40,23 +40,23 @@ function Login({ registerView }) {
         headers: {
           "Content-type": "application/json",
         },
-      })
+      });
       if (response.ok) {
-        console.log(response)
-        navigate("/homepage")
+        //console.log(response)
+        navigate("/homepage");
       } else {
-        console.log("login failed")
+        console.log("login failed");
         if (response.status === 400) {
-          console.log("bad request")
+          console.log("bad request");
         }
         if (response.status === 404) {
-          console.log("page not found")
+          console.log("page not found");
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="login">
@@ -90,22 +90,22 @@ function Login({ registerView }) {
         </Button>
       </Form>
     </div>
-  )
+  );
 }
 
 // Register Component**************
 
 function Register({ loginView }) {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const userRegister = async (e) => {
-    e.preventDefault()
-    const newUser = { username, password, email }
-    console.log(newUser)
+    e.preventDefault();
+    const newUser = { username, password, email };
+    console.log(newUser);
     try {
       let response = await fetch(`${process.env.REACT_APP_USERS_URL}account`, {
         method: "POST",
@@ -114,23 +114,23 @@ function Register({ loginView }) {
         headers: {
           "Content-type": "application/json",
         },
-      })
+      });
       if (response.ok) {
-        console.log(response)
-        navigate("/homepage")
+        console.log(response);
+        navigate("/homepage");
       } else {
-        alert("registration failed")
+        alert("registration failed");
         if (response.status === 400) {
-          alert("bad request")
+          alert("bad request");
         }
         if (response.status === 404) {
-          alert("page not found")
+          alert("page not found");
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="register">
@@ -171,5 +171,5 @@ function Register({ loginView }) {
         </Button>
       </Form>
     </div>
-  )
+  );
 }

@@ -44,6 +44,8 @@ export default function Homepage() {
     };
     //let chatId2 = "62739dfb95818ef28cf6a8e3";
     socket.emit("outgoingMessage", { data, chat });
+
+    console.log({ data, chat });
     setMessages((m) => [...m, data]);
 
     setText("");

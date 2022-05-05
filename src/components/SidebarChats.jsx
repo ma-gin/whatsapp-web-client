@@ -51,7 +51,7 @@ export default function SidebarChats() {
         },
       })
       if (response.ok) {
-        console.log(response)
+        
       } else {
         console.log("login failed")
         if (response.status === 400) {
@@ -77,6 +77,7 @@ export default function SidebarChats() {
       if (response.ok) {
         const data = await response.json()
         setChats(data)
+        dispatch(setActiveChatAction(data.reverse()[0]._id))
       } else {
         console.log("error on fetching users")
       }
@@ -118,7 +119,6 @@ export default function SidebarChats() {
                   key={idx}
                   onClick={async () => {
                     await createChat(tUser._id)
-                    console.log(tUser)
                     existingChats()
                   }}>
                   {tUser.username}

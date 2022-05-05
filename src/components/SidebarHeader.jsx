@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 
@@ -14,7 +13,7 @@ export default function SidebarHeader() {
     userData();
   }, []);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const userData = async (event) => {
     try {
@@ -26,7 +25,7 @@ export default function SidebarHeader() {
         const data = await response.json();
         console.log(data);
         setUser(data);
-        dispatch(setUserInfoAction(data))
+        dispatch(setUserInfoAction(data));
       } else {
         console.log("error on fetching users");
       }
@@ -34,7 +33,6 @@ export default function SidebarHeader() {
       console.log(error);
     }
   };
-
 
   return (
     <>
@@ -55,7 +53,5 @@ export default function SidebarHeader() {
         </div>
       )}
     </>
-
   );
-
 }

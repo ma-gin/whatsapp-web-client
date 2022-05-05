@@ -1,35 +1,34 @@
 .user-pic {
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .search-input {
-    border: 1px solid black !important;
-    border-radius: 5px !important;
+  border: 1px solid black !important;
+  border-radius: 5px !important;
 }
 
 .user-picture {
-    border-radius: 50%;
-   width: 40px;
-    z-index: 1;
-    min-height: 40px;
-    max-height: 40px;
+  border-radius: 50%;
+  width: 40px;
+  z-index: 1;
+  min-height: 40px;
+  max-height: 40px;
 }
 
-.chatBack{
-    background-image: url("https://i.pinimg.com/236x/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e--sultan.jpg");
-    position: center;
-    object-fit:cover ;
-    height: 90vh;
+.chatBack {
+  background-image: url("https://i.pinimg.com/236x/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e--sultan.jpg");
+  position: center;
+  object-fit: cover;
+  height: 90vh;
 }
 
-.message{
-    height: 5vh;
+.message {
+  height: 5vh;
 }
 
-.message-input{
-    width: 100%;
+.message-input {
+  width: 100%;
 }
-

@@ -17,6 +17,7 @@ export default function SidebarChats(props) {
   const [chats, setChats] = useState(undefined)
 
   const user = useSelector((state) => state.loggedUser)
+  const activeChat = useSelector((state) => state.activeChat)
 
   const URL = process.env.REACT_APP_SEARCH_URL
 
@@ -140,7 +141,11 @@ export default function SidebarChats(props) {
             chats.map((chat, idx) => (
               <div
                 key={idx}
-                className="d-flex mt-1 align-items-center chat-border"
+                className={
+                  chat._id === activeChat
+                    ? "d-flex mt-1 align-items-center chat-border active-chat"
+                    : "d-flex mt-1 align-items-center chat-border"
+                }
                 onClick={() => {
                   props.setChat(chat._id)
                   dispatch(setActiveChatAction(chat._id))

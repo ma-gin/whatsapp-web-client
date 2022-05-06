@@ -70,7 +70,7 @@ export default function SidebarHeader({ logout }) {
   return (
     <>
       {user && (
-        <div className="d-flex align-items-center sidebar-header">
+        <div className="d-flex align-items-center sidebar-header pt-3">
           <img
             src={user.avatar}
             alt={"User logo"}

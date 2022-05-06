@@ -6,8 +6,6 @@ import { Form } from "react-bootstrap"
 import Picker from "emoji-picker-react"
 import { BsFillEmojiSmileFill, BsPaperclip } from "react-icons/bs"
 
-import "../styles/main.css"
-
 export default function MainChat(props) {
   //useEffect w props.chat
   // fetch /chats/${props.chat}
@@ -70,11 +68,11 @@ export default function MainChat(props) {
   }, [chat])
 
   return (
-    <Col md={8} className="py-3">
+    <Col md={8}>
       <>
         {" "}
         {recipient && (
-          <div className="d-flex align-items-center border-2 mb-3">
+          <div className="d-flex align-items-center border-2 mb-3 pt-3">
             <img
               src={recipient.avatar}
               alt={"User logo"}

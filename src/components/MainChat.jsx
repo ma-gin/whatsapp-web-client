@@ -67,6 +67,43 @@ export default function MainChat(props) {
     existingMessages()
   }, [chat])
 
+  const uploadMedia = async (e) => {
+    e.preventDefault();
+    const apiUrl = process.env.REACT_APP_CREATE_CHAT;
+
+    const inpFile = document.getElementById("media-input");
+    const formData = new FormData();
+    formData.append("media", inpFile.files[0]);
+    console.log("FILE TO  UPLOAD: ", inpFile.files[0]);
+
+    if (inpFile.files[0]) {
+      try {
+        let response = await fetch(`${apiUrl}chats/media`, {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        });
+        if (response.ok) {
+          let data = await response.json();
+          let mediaUrl = data.url;
+          console.log(mediaUrl);
+          props.setMedia(mediaUrl);
+        } else {
+          alert("something went wrong! please try again");
+
+          if (response.status === 400) {
+            alert("some data was wrong");
+          }
+          if (response.status === 400) {
+            alert("not found");
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <Col md={8}>
       <>
@@ -80,9 +117,8 @@ export default function MainChat(props) {
             <p className="normal-p">{recipient.username}</p>
           </div>
         )}
-        <div
-          onClick={() => setEmoji(false)}
-          className="chatBack scrollerChat p-4">
+        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
+
           {allMessages &&
             allMessages.map((message, i) => (
               <div
@@ -110,30 +146,16 @@ export default function MainChat(props) {
           {/* {props.messages &&
                 props.messages.map((message, i) => (
                   <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
-                ))} */}
+                ))} 
+                 {message.content.media}
+                */}
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
-          <div>
-            {" "}
-            <span
-              style={{ color: "coral", fontSize: "30px", marginRight: "6px" }}
-              onClick={() => setEmoji(!emoji)}>
-              <BsFillEmojiSmileFill></BsFillEmojiSmileFill>
-            </span>
-          </div>
-          <div>
-            {" "}
-            <span
-              style={{ color: "coral", fontSize: "30px", marginRight: "6px" }}>
-              <BsPaperclip></BsPaperclip>
-            </span>
-          </div>
-          <Form
-            onClick={() => setEmoji(false)}
-            className="w-100"
-            onSubmit={(e) => {
-              props.handleMessage(e)
-            }}>
+
+        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
+        <input type="file" id="media-input"></input>
+          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e); uploadMedia(e)}}>
+
             <Form.Control
               //disabled={!loggedIn}
               type="text"

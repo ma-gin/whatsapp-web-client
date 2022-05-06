@@ -169,12 +169,11 @@ export default function MainChat(props) {
               </>
             ))}
 
-          {/* {props.messages &&
+          {props.messages &&
                 props.messages.map((message, i) => (
-                  <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
+                  <div key={i} className={props.socketMess && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
                 ))} 
-                 {message.content.media}
-                */}
+               
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
 

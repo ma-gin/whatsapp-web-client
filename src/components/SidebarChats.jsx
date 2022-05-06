@@ -126,7 +126,7 @@ export default function SidebarChats(props) {
                     src={tUser.avatar}
                     alt={"User logo"}
                     className={"user-picture  me-2"}></img>
-                  <p>{tUser.username}</p>
+                  <p className="normal-p">{tUser.username}</p>
                 </div>
               ))}
             </div>
@@ -154,7 +154,7 @@ export default function SidebarChats(props) {
                     }
                     alt={"User logo"}
                     className={"user-picture  me-2"}></img>
-                  <p>
+                  <p className="normal-p">
                     {chat.members[0]._id === user._id
                       ? chat.members[1].username
                       : chat.members[0].username}

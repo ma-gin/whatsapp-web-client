@@ -48,8 +48,8 @@ export default function Sidebar({ chat, setChat }) {
   }
 
   return (
-    <Col md={4} className="sidebar">
-      <SidebarHeader />
+    <Col md={4} className="sidebar py-3">
+      <SidebarHeader logout={userLogout} />
       <SidebarChats chat={chat} setChat={setChat} />
     </Col>
   )

@@ -44,7 +44,7 @@ export default function SidebarHeader() {
             alt={"User logo"}
             className={"user-picture me-2"}></img>
 
-          <p>{user.username}</p>
+          <p className="normal-p">{user.username}</p>
           <div className="d-flex align-items-center ms-auto sidebar-header-icons">
             <BiUser className="header-icon" />
             <AiOutlinePlus className="header-icon" />

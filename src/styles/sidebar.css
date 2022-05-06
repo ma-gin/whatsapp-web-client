@@ -57,12 +57,28 @@
 
 .chat-border {
   border: 1px solid rgb(179, 178, 178);
-  min-height: 80px;
-  max-height: 80px;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .chat-list {
   position: absolute;
   z-index: 100;
+}
+
+.sidebar-header p {
+  margin-bottom: 0;
+}
+
+.sidebar-header-icons {
+  min-width: 68px;
+  justify-content: space-evenly;
+  color: rgba(179, 178, 178, 0.96);
+}
+
+.header-icon:hover {
+  color: black;
+}
+
+.chat-border p {
+  margin-bottom: 0;
 }

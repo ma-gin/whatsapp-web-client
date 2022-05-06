@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { Col } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import MainChat from "../components/MainChat";
 import "../styles/sidebar.css";
@@ -15,6 +16,7 @@ export default function Homepage() {
   const [media, setMedia] = useState("");
   const [messages, setMessages] = useState([]);
   const [chat, setChat] = useState("");
+  const [socketMess, setSocketMess] = useState(undefined)
 
   const socket = useMemo(
     () =>
@@ -32,6 +34,7 @@ export default function Homepage() {
       socket.on("incomingMessage", ({ newMessage }) => {
         console.table({ newMessage });
         setMessages((messages) => [...messages, newMessage]);
+        setSocketMess(newMessage)
       });
     });
   }, [socket]);
@@ -49,6 +52,7 @@ export default function Homepage() {
 
     console.log({ data, chat });
     setMessages((m) => [...m, data]);
+    setSocketMess(undefined)
 
     setText("");
   };
@@ -57,6 +61,7 @@ export default function Homepage() {
     <Container>
       <Row>
         <Sidebar chat={chat} setChat={setChat} />
+        {!chat && <Col md={8}><div>Start a new conversation</div></Col>}
         {chat && (
           <MainChat
             text={text}
@@ -65,6 +70,7 @@ export default function Homepage() {
             setMedia={setMedia}
             handleMessage={handleMessage}
             messages={messages}
+            socketMess={socketMess}
           />
         )}
       </Row>

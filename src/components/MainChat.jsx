@@ -85,14 +85,14 @@ export default function MainChat(props) {
         <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
           {allMessages &&
             allMessages.map((message, i) => (
-              // <>
-              <div key={i} className={message.sender === loggedUser._id ?  " message-sent p-2 mb-2" : "message-received  p-2 mb-2"}>{message.content.text}</div>
-              //  {props.messages &&
-              //   props.messages.map((message, i) => (
-              //     <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
-              //   ))}
-                // </>
+              
+              <div key={i} className={message.sender === loggedUser._id ?  " message-sent p-2 mb-2 d-flex" : "message-received  p-2 mb-2 d-flex"}><span>{message.content.text}</span> <span style={{fontSize: "10px", marginLeft: "auto", marginTop: "auto", width: "25%"}}>{message.createdAt.split("T")[1].split(".")[0].split(":")[0] + ":" + message.createdAt.split("T")[1].split(".")[0].split(":")[1]}</span></div>
+               
             ))} 
+            {/* {props.messages &&
+                props.messages.map((message, i) => (
+                  <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
+                ))} */}
         </div>
         
         <div className="message mb-1 d-flex align-items-center mt-1">

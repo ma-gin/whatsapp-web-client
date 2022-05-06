@@ -86,7 +86,7 @@
 
 .scrollerChat {
   overflow-y: scroll;
-  scrollbar-color: rebeccapurple green;
+  scrollbar-color: green;
   scrollbar-width: thin;
 }
 .emoji{

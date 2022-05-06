@@ -152,7 +152,7 @@ export default function MainChat(props) {
                     ? "message-sent p-2 mb-2 d-flex"
                     : "message-received  p-2 mb-2 d-flex"
                 } >
-                <img className="msg" style={{ objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
+                <img className="msg" alt="backend" style={{ objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
                 <p
                   style={{
                     fontSize: "10px",
@@ -169,10 +169,10 @@ export default function MainChat(props) {
               </>
             ))}
 
-          {props.messages &&
+          {/* {props.messages &&
                 props.messages.map((message, i) => (
                   <div key={i} className={props.socketMess && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
-                ))} 
+                ))}  */}
                
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">

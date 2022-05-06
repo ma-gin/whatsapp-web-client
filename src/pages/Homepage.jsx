@@ -52,7 +52,6 @@ export default function Homepage() {
 
     console.log({ data, chat });
     setMessages((m) => [...m, data]);
-    setSocketMess(undefined)
 
     setText("");
   };

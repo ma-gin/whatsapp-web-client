@@ -11,7 +11,7 @@
   margin-bottom: 0.5rem;
 }
 .search-input:hover {
-  border-color: black;
+  border-color: rgba(0, 0, 0, 0.5);
 }
 
 .user-picture {
@@ -65,8 +65,8 @@
 }
 .chat-border:hover {
   cursor: pointer;
-  border-color: black;
-  background-color: rgba(145, 145, 145, 0.3);
+  border-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(145, 145, 145, 0.1);
 }
 
 .chat-list {
@@ -144,5 +144,23 @@
   padding: 3px;
 }
 .active-chat {
+  background-color: rgba(175, 175, 175, 0.2);
+}
+
+.scroller2 > div:hover {
+  cursor: pointer;
   background-color: rgba(175, 175, 175, 0.25);
+}
+
+.new-conversation {
+  height: 400px;
+  width: 400px;
+  text-align: center;
+  display: grid;
+  margin-left: 5rem;
+  place-content: center;
+  position: absolute;
+  top: 20%;
+  font-size: 26px;
+  color: rgba(133, 133, 133, 0.48);
 }

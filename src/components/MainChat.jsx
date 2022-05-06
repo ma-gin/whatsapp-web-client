@@ -10,13 +10,13 @@ export default function MainChat(props) {
   //useEffect w props.chat
   // fetch /chats/${props.chat}
 
-  const [recipient, setRecipient] = useState(undefined);
+  const [recipient, setRecipient] = useState(undefined)
 
   const [emoji, setEmoji] = useState(false)
 
   const loggedUser = useSelector((state) => state.loggedUser);
 
-  const chat = useSelector((state) => state.activeChat);
+  const chat = useSelector((state) => state.activeChat)
 
   const [allMessages, setAllMessages] = useState(undefined)
 
@@ -27,21 +27,21 @@ export default function MainChat(props) {
         {
           credentials: "include",
         }
-      );
+      )
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
         if (data.members[0]._id === loggedUser._id) {
-          setRecipient(data.members[1]);
+          setRecipient(data.members[1])
         } else {
-          setRecipient(data.members[0]);
+          setRecipient(data.members[0])
         }
       } else {
-        console.log("error on fetching users");
+        console.log("error on fetching users")
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const existingMessages = async (e) => {
     try {
@@ -69,7 +69,7 @@ export default function MainChat(props) {
   }, [chat]);
 
   return (
-    <Col md={8}>
+    <Col md={8} className="py-3">
       <>
         {" "}
         {recipient && (
@@ -77,9 +77,8 @@ export default function MainChat(props) {
             <img
               src={recipient.avatar}
               alt={"User logo"}
-              className={"user-picture me-2"}
-            ></img>
-            <p>{recipient.username}</p>
+              className={"user-picture me-2"}></img>
+            <p className="normal-p">{recipient.username}</p>
           </div>
         )}
         <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
@@ -113,5 +112,5 @@ export default function MainChat(props) {
         {emoji &&<span className="me-2 emoji"><Picker onEmojiClick={(e, emojiObj)=> {props.setText(props.text +  emojiObj.emoji)}}></Picker></span>}
       </>
     </Col>
-  );
+  )
 }

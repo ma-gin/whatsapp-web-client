@@ -1,12 +1,12 @@
-import React from "react";
-import SidebarHeader from "./SidebarHeader";
-import SidebarChats from "./SidebarChats";
-import { Col } from "react-bootstrap";
-import "../styles/sidebar.css";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import SidebarHeader from "./SidebarHeader"
+import SidebarChats from "./SidebarChats"
+import { Col } from "react-bootstrap"
+import "../styles/sidebar.css"
+import { useNavigate } from "react-router-dom"
 
 export default function Sidebar({ chat, setChat }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   // const socket = useMemo(
   //   () =>
   //     io(ADDRESS, {
@@ -40,17 +40,17 @@ export default function Sidebar({ chat, setChat }) {
       fetch(`${process.env.REACT_APP_USERS_URL}session`, {
         method: "DELETE",
         credentials: "include",
-      });
-      navigate("/");
+      })
+      navigate("/")
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
-    <Col md={4}>
-      <SidebarHeader />
+    <Col md={4} className="sidebar py-3">
+      <SidebarHeader logout={userLogout} />
       <SidebarChats chat={chat} setChat={setChat} />
     </Col>
-  );
+  )
 }

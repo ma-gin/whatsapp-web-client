@@ -14,6 +14,8 @@ export default function MainChat(props) {
 
   const [emoji, setEmoji] = useState(false)
 
+  const [attachment, setAttachment] = useState(false)
+
   const loggedUser = useSelector((state) => state.loggedUser)
 
   const chat = useSelector((state) => state.activeChat)
@@ -117,7 +119,7 @@ export default function MainChat(props) {
             <p className="normal-p">{recipient.username}</p>
           </div>
         )}
-        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
+        <div onClick={()=>{setEmoji(false); setAttachment(false)}} className="chatBack scrollerChat p-4">
 
           {allMessages &&
             allMessages.map((message, i) => (
@@ -149,8 +151,8 @@ export default function MainChat(props) {
                   message.sender === loggedUser._id
                     ? "message-sent p-2 mb-2 d-flex"
                     : "message-received  p-2 mb-2 d-flex"
-                }>
-                <img className="msg" style={{objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
+                } >
+                <img className="msg" style={{ objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
                 <p
                   style={{
                     fontSize: "10px",
@@ -177,8 +179,8 @@ export default function MainChat(props) {
         <div className="message mb-1 d-flex align-items-center mt-1">
 
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-        <input type="file" id="media-input" onChange={(e)=> uploadMedia(e)}></input>
-          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e)}else{e.preventDefault(); alert("insert some text") }}}>
+       <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setAttachment(!attachment)}><BsPaperclip></BsPaperclip></span>
+          <Form onClick={()=>setEmoji(false) } className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e); setAttachment(false)}else{e.preventDefault(); setAttachment(false); alert("insert some text") }}}>
 
             <Form.Control
               //disabled={!loggedIn}
@@ -198,7 +200,11 @@ export default function MainChat(props) {
                 props.setText(props.text + emojiObj.emoji)
               }}></Picker>
           </span>
+          
         )}
+        {attachment &&
+         <input type="file" id="media-input" className="me-2 emoji" onChange={(e)=> uploadMedia(e)}></input>
+        }
       </>
     </Col>
   )

@@ -6,16 +6,20 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { BsThreeDots } from "react-icons/bs"
 import { useDispatch } from "react-redux"
 import { setLoggedUserAction } from "../redux/actions"
-import { Dropdown } from "react-bootstrap"
+import { Dropdown, Modal, Button } from "react-bootstrap"
+import axios from "axios"
 
 export default function SidebarHeader({ logout }) {
   const [user, setUser] = useState(undefined)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     userData()
   }, [])
 
   const dispatch = useDispatch()
+
+  const formData = new FormData()
 
   const userData = async (event) => {
     try {
@@ -31,6 +35,33 @@ export default function SidebarHeader({ logout }) {
       } else {
         console.log("error on fetching users")
       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleShow = () => setShow(true)
+  const handleClose = () => {
+    setShow(false)
+    userData()
+  }
+
+  const uploadImg = (e) => {
+    formData.append("avatar", e.target.files[0])
+  }
+
+  const submitFile = async (e) => {
+    e.preventDefault()
+    try {
+      console.log(formData)
+      axios({
+        method: "post",
+        url: `${process.env.REACT_APP_USERS_URL}me/avatar`,
+        Headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+        withCredentials: true,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -55,7 +86,13 @@ export default function SidebarHeader({ logout }) {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Change Avatar</Dropdown.Item>
+                <Dropdown.Item
+                  href="#/action-1"
+                  onClick={() => {
+                    handleShow()
+                  }}>
+                  Change Avatar
+                </Dropdown.Item>
                 <Dropdown.Item
                   href="#/action-2"
                   onClick={() => {
@@ -68,6 +105,23 @@ export default function SidebarHeader({ logout }) {
           </div>
         </div>
       )}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Yo Avatar!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input type="file" name="profile-img" onChange={uploadImg} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={(e) => {
+              submitFile(e)
+            }}>
+            Sumbit
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }

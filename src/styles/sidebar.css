@@ -1,68 +1,68 @@
 .user-pic {
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .search-input {
-    border: 1px solid black !important;
-    border-radius: 5px !important;
+  border: 1px solid black !important;
+  border-radius: 5px !important;
 }
 
 .user-picture {
-    border-radius: 50%;
-   width: 40px;
-    z-index: 1;
-    min-height: 40px;
-    max-height: 40px;
+  border-radius: 50%;
+  width: 40px;
+  z-index: 1;
+  min-height: 40px;
+  max-height: 40px;
 }
 
-.chatBack{
-    background-image: url("https://i.pinimg.com/236x/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e--sultan.jpg");
-    position: center;
-    object-fit:cover ;
-    height: 90vh;
+.chatBack {
+  background-image: url("https://i.pinimg.com/236x/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e--sultan.jpg");
+  position: center;
+  object-fit: cover;
+  height: 90vh;
 }
 
-.message{
-    height: 5vh;
+.message {
+  height: 5vh;
 }
 
-.message-input{
-    width: 100%;
+.message-input {
+  width: 100%;
 }
 
-.max-height-100vh{
-    max-height: 100vh;
-  }
-
-  .scroller {
-    width:30%;
-    height: 87vh;
-    overflow-y: scroll;
-    scrollbar-color: rebeccapurple green;
-    scrollbar-width: thin;
-    position: absolute;
-  }
-
-  .scroller2 {
-    width:100%;
-    height: 87vh;
-    overflow-y: scroll;
-    scrollbar-color: rebeccapurple green;
-    scrollbar-width: thin;
-    position: absolute;
-  }
-
-.chat-border{
-    border: 1px solid rgb(179, 178, 178);
-    min-height: 80px;
-    max-height: 80px;
-    padding: 10px;
+.max-height-100vh {
+  max-height: 100vh;
 }
 
-.chat-list{
-    position: absolute;
-    z-index: 100;
+.scroller {
+  width: 30%;
+  height: 87vh;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+  position: absolute;
+}
+
+.scroller2 {
+  width: 100%;
+  height: 87vh;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+  position: absolute;
+}
+
+.chat-border {
+  border: 1px solid rgb(179, 178, 178);
+  min-height: 80px;
+  max-height: 80px;
+  padding: 10px;
+}
+
+.chat-list {
+  position: absolute;
+  z-index: 100;
 }

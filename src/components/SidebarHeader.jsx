@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 
@@ -11,14 +10,11 @@ import { setLoggedUserAction } from "../redux/actions";
 export default function SidebarHeader() {
   const [user, setUser] = useState(undefined);
 
-
   useEffect(() => {
     userData();
   }, []);
 
-
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const userData = async (event) => {
     try {
@@ -30,7 +26,7 @@ export default function SidebarHeader() {
         const data = await response.json();
         console.log(data);
         setUser(data);
-        dispatch(setLoggedUserAction(data))
+        dispatch(setLoggedUserAction(data));
       } else {
         console.log("error on fetching users");
       }
@@ -38,7 +34,6 @@ export default function SidebarHeader() {
       console.log(error);
     }
   };
-
 
   return (
     <>
@@ -59,7 +54,5 @@ export default function SidebarHeader() {
         </div>
       )}
     </>
-
   );
-
 }

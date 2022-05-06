@@ -4,13 +4,8 @@ import SidebarChats from "./SidebarChats";
 import { Col } from "react-bootstrap";
 import "../styles/sidebar.css";
 import { useNavigate } from "react-router-dom";
-import io from "socket.io-client";
-import { useEffect, useMemo } from "react";
 
-const ADDRESS = process.env.REACT_APP_BE_ADDRESS || "http://localhost:3001";
-
-export default function Sidebar() {
-
+export default function Sidebar({ chat, setChat }) {
   const navigate = useNavigate();
   // const socket = useMemo(
   //   () =>
@@ -27,7 +22,6 @@ export default function Sidebar() {
   //   });
   // }, [socket]);
 
-  
   // const userLogout = () => {
   //   try {
   //     fetch(`${process.env.REACT_APP_USERS_URL}session`, {
@@ -40,10 +34,23 @@ export default function Sidebar() {
   //   }
   // }
 
+  // eslint-disable-next-line no-unused-vars
+  const userLogout = () => {
+    try {
+      fetch(`${process.env.REACT_APP_USERS_URL}session`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Col md={4}>
       <SidebarHeader />
-      <SidebarChats />
+      <SidebarChats chat={chat} setChat={setChat} />
     </Col>
-  )
+  );
 }

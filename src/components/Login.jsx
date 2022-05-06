@@ -105,7 +105,6 @@ function Register({ loginView }) {
   const userRegister = async (e) => {
     e.preventDefault()
     const newUser = { username, password, email }
-    console.log(newUser)
     try {
       let response = await fetch(`${process.env.REACT_APP_USERS_URL}account`, {
         method: "POST",

@@ -73,7 +73,7 @@ export default function MainChat(props) {
       <>
         {" "}
         {recipient && (
-          <div className="d-flex align-items-center border-bottom border-2">
+          <div className="d-flex align-items-center border-2 mt-1 mb-1">
             <img
               src={recipient.avatar}
               alt={"User logo"}
@@ -82,7 +82,7 @@ export default function MainChat(props) {
             <p>{recipient.username}</p>
           </div>
         )}
-        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-2">
+        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
           {allMessages &&
             allMessages.map((message, i) => (
               // <>
@@ -95,7 +95,7 @@ export default function MainChat(props) {
             ))} 
         </div>
         
-        <div className="message d-flex">
+        <div className="message mb-1 d-flex align-items-center mt-1">
         
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
         <div> <span style={{color: "coral", fontSize: "30px"}} ><BsPaperclip></BsPaperclip></span></div>

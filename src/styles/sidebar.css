@@ -66,3 +66,26 @@
   position: absolute;
   z-index: 100;
 }
+
+.message-sent{
+  width: 30%;
+  background-color: green;
+  color: white;
+  border-end-end-radius: 25px;
+  margin-left: auto;
+  overflow-wrap: break-word;
+}
+
+.message-received{
+  width: 30%;
+  background-color: rgb(82, 85, 82);
+  color: white;
+  border-end-start-radius: 25px;
+  overflow-wrap: break-word;
+}
+
+.scrollerChat {
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+}

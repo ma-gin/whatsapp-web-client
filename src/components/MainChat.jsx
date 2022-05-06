@@ -175,8 +175,8 @@ export default function MainChat(props) {
                
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
-        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-       <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setAttachment(!attachment)}><BsPaperclip></BsPaperclip></span>
+        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>{setEmoji(!emoji); setAttachment(false)}}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
+       <span style={{color: "coral", fontSize: "30px"}} onClick={()=>{setAttachment(!attachment); setEmoji(false)}}><BsPaperclip></BsPaperclip></span>
           <Form onClick={()=>setEmoji(false) } className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e); setAttachment(false)}else{e.preventDefault(); setAttachment(false); alert("insert some text") }}}>
             <Form.Control
               //disabled={!loggedIn}

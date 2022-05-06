@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Picker from "emoji-picker-react";
-import { BsFillEmojiSmileFill } from "react-icons/bs";
+import { BsFillEmojiSmileFill, BsPaperclip } from "react-icons/bs";
 
 export default function MainChat(props) {
   //useEffect w props.chat
@@ -82,7 +82,7 @@ export default function MainChat(props) {
             <p>{recipient.username}</p>
           </div>
         )}
-        <div className="chatBack scrollerChat p-2">
+        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-2">
           {allMessages &&
             allMessages.map((message, i) => (
               // <>
@@ -98,8 +98,8 @@ export default function MainChat(props) {
         <div className="message d-flex">
         
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-          <span className="me-2">attachment</span>
-          <Form className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
+        <div> <span style={{color: "coral", fontSize: "30px"}} ><BsPaperclip></BsPaperclip></span></div>
+          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
             <Form.Control
               //disabled={!loggedIn}
               type="text"

@@ -178,7 +178,7 @@ export default function MainChat(props) {
 
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
         <input type="file" id="media-input" onChange={(e)=> uploadMedia(e)}></input>
-          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
+          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e)}else{e.preventDefault(); alert("insert some text") }}}>
 
             <Form.Control
               //disabled={!loggedIn}

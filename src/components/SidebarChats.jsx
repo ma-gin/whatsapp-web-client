@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import FormControl from "react-bootstrap/FormControl";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
-import { BsSearch } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { setActiveChatAction } from "../redux/actions";
-import "../styles/sidebar.css";
+import React, { useEffect, useState } from "react"
+import Col from "react-bootstrap/Col"
+import Container from "react-bootstrap/Container"
+import FormControl from "react-bootstrap/FormControl"
+import InputGroup from "react-bootstrap/InputGroup"
+import Row from "react-bootstrap/Row"
+import { BsSearch } from "react-icons/bs"
+import { useDispatch, useSelector } from "react-redux"
+import { setActiveChatAction } from "../redux/actions"
+import "../styles/sidebar.css"
 
 export default function SidebarChats(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [searchedUsers, setSearchedUsers] = useState(undefined);
+  const [searchedUsers, setSearchedUsers] = useState(undefined)
 
-  const [chats, setChats] = useState(undefined);
+  const [chats, setChats] = useState(undefined)
 
-  const user = useSelector((state) => state.loggedUser);
+  const user = useSelector((state) => state.loggedUser)
 
-  const URL = process.env.REACT_APP_SEARCH_URL;
+  const URL = process.env.REACT_APP_SEARCH_URL
 
   const searchChat = async (event) => {
     try {
       // console.log('search')
       const response = await fetch(`${URL}?q=` + event, {
         credentials: "include",
-      });
+      })
       if (response.ok) {
-        const data = await response.json();
-        setSearchedUsers(data);
+        const data = await response.json()
+        setSearchedUsers(data)
       } else {
-        console.log("error on fetching users");
-        setSearchedUsers(undefined);
+        console.log("error on fetching users")
+        setSearchedUsers(undefined)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const createChat = async (e) => {
     try {
@@ -47,21 +47,21 @@ export default function SidebarChats(props) {
         headers: {
           "Content-type": "application/json",
         },
-      });
+      })
       if (response.ok) {
       } else {
-        console.log("login failed");
+        console.log("login failed")
         if (response.status === 400) {
-          console.log("bad request");
+          console.log("bad request")
         }
         if (response.status === 404) {
-          console.log("page not found");
+          console.log("page not found")
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const existingChats = async (event) => {
     try {
@@ -70,22 +70,22 @@ export default function SidebarChats(props) {
         {
           credentials: "include",
         }
-      );
+      )
       if (response.ok) {
-        const data = await response.json();
-        setChats(data);
-        dispatch(setActiveChatAction(data.reverse()[0]._id));
+        const data = await response.json()
+        setChats(data)
+        dispatch(setActiveChatAction(data.reverse()[0]._id))
       } else {
-        console.log("error on fetching users");
+        console.log("error on fetching users")
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
-    existingChats();
-  }, [searchedUsers]);
+    existingChats()
+  }, [searchedUsers])
 
   return (
     <Container className={"p-0 "}>
@@ -112,23 +112,20 @@ export default function SidebarChats(props) {
           searchedUsers === " " ? null : (
             <div
               className="scroller2"
-              style={{ backgroundColor: "white", zIndex: 90 }}
-            >
+              style={{ backgroundColor: "white", zIndex: 90 }}>
               {searchedUsers.map((tUser, idx) => (
                 <div
                   key={idx}
                   onClick={async () => {
-                    await createChat(tUser._id);
-                    existingChats();
-                    setSearchedUsers("");
+                    await createChat(tUser._id)
+                    existingChats()
+                    setSearchedUsers("")
                   }}
-                  className="d-flex mt-2 align-items-center"
-                >
+                  className="d-flex mt-2 align-items-center">
                   <img
                     src={tUser.avatar}
                     alt={"User logo"}
-                    className={"user-picture  me-2"}
-                  ></img>
+                    className={"user-picture  me-2"}></img>
                   <p>{tUser.username}</p>
                 </div>
               ))}
@@ -138,18 +135,17 @@ export default function SidebarChats(props) {
       </Row>
 
       <Row>
-        <Col className="scroller">
+        <Col className="scroller chats-container">
           {chats &&
             chats.map((chat, idx) => (
               <div
                 key={idx}
-                className="d-flex mt-2 align-items-center chat-border"
+                className="d-flex mt-1 align-items-center chat-border"
                 onClick={() => {
-                  props.setChat(chat._id);
-                  dispatch(setActiveChatAction(chat._id));
-                }}
-              >
-                <div key={idx} className="d-flex mt-2 align-items-center">
+                  props.setChat(chat._id)
+                  dispatch(setActiveChatAction(chat._id))
+                }}>
+                <div key={idx} className="d-flex align-items-center">
                   <img
                     src={
                       chat.members[0]._id === user._id
@@ -157,8 +153,7 @@ export default function SidebarChats(props) {
                         : chat.members[0].avatar
                     }
                     alt={"User logo"}
-                    className={"user-picture  me-2"}
-                  ></img>
+                    className={"user-picture  me-2"}></img>
                   <p>
                     {chat.members[0]._id === user._id
                       ? chat.members[1].username
@@ -170,5 +165,5 @@ export default function SidebarChats(props) {
         </Col>
       </Row>
     </Container>
-  );
+  )
 }

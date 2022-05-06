@@ -38,7 +38,6 @@
 }
 
 .scroller {
-  width: 30%;
   height: 87vh;
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
@@ -64,15 +63,24 @@
   position: absolute;
   z-index: 100;
 }
+.sidebar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+}
 
 .sidebar-header p {
   margin-bottom: 0;
 }
 
 .sidebar-header-icons {
+  width: 28%;
   min-width: 68px;
   justify-content: space-evenly;
   color: rgba(179, 178, 178, 0.96);
+}
+.header-icon {
+  font-size: large;
 }
 
 .header-icon:hover {

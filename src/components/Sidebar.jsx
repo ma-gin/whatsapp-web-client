@@ -3,7 +3,6 @@ import SidebarHeader from "./SidebarHeader"
 import SidebarChats from "./SidebarChats"
 import { Col } from "react-bootstrap"
 import "../styles/sidebar.css"
-import "../styles/styles-main.css"
 import { useNavigate } from "react-router-dom"
 
 export default function Sidebar({ chat, setChat }) {

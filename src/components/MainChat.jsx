@@ -121,6 +121,7 @@ export default function MainChat(props) {
 
           {allMessages &&
             allMessages.map((message, i) => (
+              <>
               <div
                 key={i}
                 className={
@@ -135,14 +136,37 @@ export default function MainChat(props) {
                     width: "15px",
                     marginTop: "auto",
                     marginRight: "9px",
-                    minWidth: "26px",
+                    minWidth: "30px",
                   }}>
                   {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
                     ":" +
                     message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
                 </p>
               </div>
+             { message.content.media && <div
+                key={i}
+                className={
+                  message.sender === loggedUser._id
+                    ? "message-sent p-2 mb-2 d-flex"
+                    : "message-received  p-2 mb-2 d-flex"
+                }>
+                <img className="msg" style={{objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
+                <p
+                  style={{
+                    fontSize: "10px",
+                    width: "15px",
+                    marginTop: "auto",
+                    marginRight: "9px",
+                    minWidth: "30px",
+                  }}>
+                  {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
+                    ":" +
+                    message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
+                </p>
+              </div>}
+              </>
             ))}
+
           {/* {props.messages &&
                 props.messages.map((message, i) => (
                   <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
@@ -153,8 +177,8 @@ export default function MainChat(props) {
         <div className="message mb-1 d-flex align-items-center mt-1">
 
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-        <input type="file" id="media-input"></input>
-          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e); uploadMedia(e)}}>
+        <input type="file" id="media-input" onChange={(e)=> uploadMedia(e)}></input>
+          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
 
             <Form.Control
               //disabled={!loggedIn}

@@ -74,21 +74,21 @@
   z-index: 100;
 }
 
-.message-sent{
+.message-sent {
   width: 35%;
   background-color: green;
   color: white;
   border-end-end-radius: 25px;
   margin-left: auto;
-  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
-.message-received{
+.message-received {
   width: 35%;
   background-color: rgb(82, 85, 82);
   color: white;
   border-end-start-radius: 25px;
-  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .scrollerChat {
@@ -96,7 +96,7 @@
   scrollbar-color: green;
   scrollbar-width: thin;
 }
-.emoji{
+.emoji {
   position: absolute;
   bottom: 38px;
 }
@@ -135,3 +135,11 @@
   display: none !important;
 }
 
+.chatBack p {
+  margin-bottom: 0;
+}
+
+.msg {
+  flex-grow: 1;
+  padding: 3px;
+}

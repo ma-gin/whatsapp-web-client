@@ -1,10 +1,12 @@
-import React from "react";
-import Col from "react-bootstrap/Col";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import Picker from "emoji-picker-react";
-import { BsFillEmojiSmileFill, BsPaperclip } from "react-icons/bs";
+import React from "react"
+import Col from "react-bootstrap/Col"
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { Form } from "react-bootstrap"
+import Picker from "emoji-picker-react"
+import { BsFillEmojiSmileFill, BsPaperclip } from "react-icons/bs"
+
+import "../styles/main.css"
 
 export default function MainChat(props) {
   //useEffect w props.chat
@@ -14,7 +16,7 @@ export default function MainChat(props) {
 
   const [emoji, setEmoji] = useState(false)
 
-  const loggedUser = useSelector((state) => state.loggedUser);
+  const loggedUser = useSelector((state) => state.loggedUser)
 
   const chat = useSelector((state) => state.activeChat)
 
@@ -50,30 +52,29 @@ export default function MainChat(props) {
         {
           credentials: "include",
         }
-      );
+      )
       if (response.ok) {
-        const data = await response.json();
-          setAllMessages(data.messages)
+        const data = await response.json()
+        setAllMessages(data.messages)
       } else {
-        console.log("error on fetching users");
+        console.log("error on fetching users")
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
-
+  }
 
   useEffect(() => {
-    existingChats();
+    existingChats()
     existingMessages()
-  }, [chat]);
+  }, [chat])
 
   return (
     <Col md={8} className="py-3">
       <>
         {" "}
         {recipient && (
-          <div className="d-flex align-items-center border-2 mt-1 mb-1">
+          <div className="d-flex align-items-center border-2 mb-3">
             <img
               src={recipient.avatar}
               alt={"User logo"}
@@ -81,35 +82,79 @@ export default function MainChat(props) {
             <p className="normal-p">{recipient.username}</p>
           </div>
         )}
-        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
+        <div
+          onClick={() => setEmoji(false)}
+          className="chatBack scrollerChat p-4">
           {allMessages &&
             allMessages.map((message, i) => (
-              
-              <div key={i} className={message.sender === loggedUser._id ?  " message-sent p-2 mb-2 d-flex" : "message-received  p-2 mb-2 d-flex"}><span>{message.content.text}</span> <span style={{fontSize: "10px", marginLeft: "auto", marginTop: "auto", width: "25%"}}>{message.createdAt.split("T")[1].split(".")[0].split(":")[0] + ":" + message.createdAt.split("T")[1].split(".")[0].split(":")[1]}</span></div>
-               
-            ))} 
-            {/* {props.messages &&
+              <div
+                key={i}
+                className={
+                  message.sender === loggedUser._id
+                    ? "message-sent p-2 mb-2 d-flex"
+                    : "message-received  p-2 mb-2 d-flex"
+                }>
+                <p className="msg">{message.content.text}</p>
+                <p
+                  style={{
+                    fontSize: "10px",
+                    width: "15px",
+                    marginTop: "auto",
+                    marginRight: "9px",
+                    minWidth: "26px",
+                  }}>
+                  {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
+                    ":" +
+                    message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
+                </p>
+              </div>
+            ))}
+          {/* {props.messages &&
                 props.messages.map((message, i) => (
                   <div key={i} className={props.socketMess?.sender && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
                 ))} */}
         </div>
-        
         <div className="message mb-1 d-flex align-items-center mt-1">
-        
-        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-        <div> <span style={{color: "coral", fontSize: "30px"}} ><BsPaperclip></BsPaperclip></span></div>
-          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
+          <div>
+            {" "}
+            <span
+              style={{ color: "coral", fontSize: "30px", marginRight: "6px" }}
+              onClick={() => setEmoji(!emoji)}>
+              <BsFillEmojiSmileFill></BsFillEmojiSmileFill>
+            </span>
+          </div>
+          <div>
+            {" "}
+            <span
+              style={{ color: "coral", fontSize: "30px", marginRight: "6px" }}>
+              <BsPaperclip></BsPaperclip>
+            </span>
+          </div>
+          <Form
+            onClick={() => setEmoji(false)}
+            className="w-100"
+            onSubmit={(e) => {
+              props.handleMessage(e)
+            }}>
             <Form.Control
               //disabled={!loggedIn}
               type="text"
               value={props.text}
               placeholder={"Type a message..."}
-              onChange={(e) => {props.setText(e.target.value)}}
+              onChange={(e) => {
+                props.setText(e.target.value)
+              }}
             />
           </Form>
-  
         </div>
-        {emoji &&<span className="me-2 emoji"><Picker onEmojiClick={(e, emojiObj)=> {props.setText(props.text +  emojiObj.emoji)}}></Picker></span>}
+        {emoji && (
+          <span className="me-2 emoji">
+            <Picker
+              onEmojiClick={(e, emojiObj) => {
+                props.setText(props.text + emojiObj.emoji)
+              }}></Picker>
+          </span>
+        )}
       </>
     </Col>
   )

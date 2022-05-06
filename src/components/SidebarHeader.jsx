@@ -6,8 +6,9 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { BsThreeDots } from "react-icons/bs"
 import { useDispatch } from "react-redux"
 import { setLoggedUserAction } from "../redux/actions"
+import { Dropdown } from "react-bootstrap"
 
-export default function SidebarHeader() {
+export default function SidebarHeader({ logout }) {
   const [user, setUser] = useState(undefined)
 
   useEffect(() => {
@@ -48,7 +49,22 @@ export default function SidebarHeader() {
           <div className="d-flex align-items-center ms-auto sidebar-header-icons">
             <BiUser className="header-icon" />
             <AiOutlinePlus className="header-icon" />
-            <BsThreeDots className="header-icon" />
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <BsThreeDots className="header-icon" />{" "}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Change Avatar</Dropdown.Item>
+                <Dropdown.Item
+                  href="#/action-2"
+                  onClick={() => {
+                    logout()
+                  }}>
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
       )}

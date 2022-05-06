@@ -68,13 +68,13 @@ export default function MainChat(props) {
   }, [chat])
 
   const uploadMedia = async (e) => {
-    e.preventDefault();
-    const apiUrl = process.env.REACT_APP_CREATE_CHAT;
+    e.preventDefault()
+    const apiUrl = process.env.REACT_APP_CREATE_CHAT
 
-    const inpFile = document.getElementById("media-input");
-    const formData = new FormData();
-    formData.append("media", inpFile.files[0]);
-    console.log("FILE TO  UPLOAD: ", inpFile.files[0]);
+    const inpFile = document.getElementById("media-input")
+    const formData = new FormData()
+    formData.append("media", inpFile.files[0])
+    console.log("FILE TO  UPLOAD: ", inpFile.files[0])
 
     if (inpFile.files[0]) {
       try {
@@ -82,27 +82,27 @@ export default function MainChat(props) {
           method: "POST",
           body: formData,
           credentials: "include",
-        });
+        })
         if (response.ok) {
-          let data = await response.json();
-          let mediaUrl = data.url;
-          console.log(mediaUrl);
-          props.setMedia(mediaUrl);
+          let data = await response.json()
+          let mediaUrl = data.url
+          console.log(mediaUrl)
+          props.setMedia(mediaUrl)
         } else {
-          alert("something went wrong! please try again");
+          alert("something went wrong! please try again")
 
           if (response.status === 400) {
-            alert("some data was wrong");
+            alert("some data was wrong")
           }
           if (response.status === 400) {
-            alert("not found");
+            alert("not found")
           }
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-  };
+  }
 
   return (
     <Col md={8}>
@@ -117,8 +117,9 @@ export default function MainChat(props) {
             <p className="normal-p">{recipient.username}</p>
           </div>
         )}
-        <div onClick={()=>setEmoji(false)} className="chatBack scrollerChat p-4">
-
+        <div
+          onClick={() => setEmoji(false)}
+          className="chatBack scrollerChat p-4">
           {allMessages &&
             allMessages.map((message, i) => (
               <div
@@ -135,7 +136,7 @@ export default function MainChat(props) {
                     width: "15px",
                     marginTop: "auto",
                     marginRight: "9px",
-                    minWidth: "26px",
+                    minWidth: "30px",
                   }}>
                   {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
                     ":" +
@@ -151,11 +152,22 @@ export default function MainChat(props) {
                 */}
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
-
-        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-        <input type="file" id="media-input"></input>
-          <Form onClick={()=>setEmoji(false)} className="w-100" onSubmit={(e)=> {props.handleMessage(e); uploadMedia(e)}}>
-
+          <div>
+            {" "}
+            <span
+              style={{ color: "coral", fontSize: "30px" }}
+              onClick={() => setEmoji(!emoji)}>
+              <BsFillEmojiSmileFill></BsFillEmojiSmileFill>
+            </span>
+          </div>
+          <input type="file" id="media-input"></input>
+          <Form
+            onClick={() => setEmoji(false)}
+            className="w-100"
+            onSubmit={(e) => {
+              props.handleMessage(e)
+              uploadMedia(e)
+            }}>
             <Form.Control
               //disabled={!loggedIn}
               type="text"

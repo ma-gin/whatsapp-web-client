@@ -70,13 +70,13 @@ export default function MainChat(props) {
   }, [chat])
 
   const uploadMedia = async (e) => {
-    e.preventDefault();
-    const apiUrl = process.env.REACT_APP_CREATE_CHAT;
+    e.preventDefault()
+    const apiUrl = process.env.REACT_APP_CREATE_CHAT
 
-    const inpFile = document.getElementById("media-input");
-    const formData = new FormData();
-    formData.append("media", inpFile.files[0]);
-    console.log("FILE TO  UPLOAD: ", inpFile.files[0]);
+    const inpFile = document.getElementById("media-input")
+    const formData = new FormData()
+    formData.append("media", inpFile.files[0])
+    console.log("FILE TO  UPLOAD: ", inpFile.files[0])
 
     if (inpFile.files[0]) {
       try {
@@ -84,27 +84,27 @@ export default function MainChat(props) {
           method: "POST",
           body: formData,
           credentials: "include",
-        });
+        })
         if (response.ok) {
-          let data = await response.json();
-          let mediaUrl = data.url;
-          console.log(mediaUrl);
-          props.setMedia(mediaUrl);
+          let data = await response.json()
+          let mediaUrl = data.url
+          console.log(mediaUrl)
+          props.setMedia(mediaUrl)
         } else {
-          alert("something went wrong! please try again");
+          alert("something went wrong! please try again")
 
           if (response.status === 400) {
-            alert("some data was wrong");
+            alert("some data was wrong")
           }
           if (response.status === 400) {
-            alert("not found");
+            alert("not found")
           }
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-  };
+  }
 
   return (
     <Col md={8}>
@@ -120,7 +120,6 @@ export default function MainChat(props) {
           </div>
         )}
         <div onClick={()=>{setEmoji(false); setAttachment(false)}} className="chatBack scrollerChat p-4">
-
           {allMessages &&
             allMessages.map((message, i) => (
               <>
@@ -176,11 +175,9 @@ export default function MainChat(props) {
                
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
-
         <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
        <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setAttachment(!attachment)}><BsPaperclip></BsPaperclip></span>
           <Form onClick={()=>setEmoji(false) } className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e); setAttachment(false)}else{e.preventDefault(); setAttachment(false); alert("insert some text") }}}>
-
             <Form.Control
               //disabled={!loggedIn}
               type="text"

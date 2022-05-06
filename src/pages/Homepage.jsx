@@ -12,6 +12,7 @@ const ADDRESS = process.env.REACT_APP_BE_ADDRESS || "http://localhost:3001";
 
 export default function Homepage() {
   const [text, setText] = useState("");
+  const [media, setMedia] = useState("");
   const [messages, setMessages] = useState([]);
   const [chat, setChat] = useState("");
 
@@ -39,11 +40,11 @@ export default function Homepage() {
     e.preventDefault();
     console.log("handleMessage", text);
     const data = {
-      content: { text: text },
+      content: { text: text, media: media },
       //timestamp is added by DB
       //not sending "sender" at all - this will be retrieved at the backend from cookie
     };
-    //let chatId2 = "62739dfb95818ef28cf6a8e3";
+
     socket.emit("outgoingMessage", { data, chat });
 
     console.log({ data, chat });
@@ -60,6 +61,8 @@ export default function Homepage() {
           <MainChat
             text={text}
             setText={setText}
+            media={media}
+            setMedia={setMedia}
             handleMessage={handleMessage}
             messages={messages}
           />

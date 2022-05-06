@@ -89,3 +89,7 @@
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
 }
+.emoji{
+  position: absolute;
+  bottom: 38px;
+}

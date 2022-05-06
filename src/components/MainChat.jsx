@@ -3,13 +3,16 @@ import Col from "react-bootstrap/Col";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { Picker } from "emoji-mart";
+import Picker from "emoji-picker-react";
+import { BsFillEmojiSmileFill } from "react-icons/bs";
 
 export default function MainChat(props) {
   //useEffect w props.chat
   // fetch /chats/${props.chat}
 
   const [recipient, setRecipient] = useState(undefined);
+
+  const [emoji, setEmoji] = useState(false)
 
   const loggedUser = useSelector((state) => state.loggedUser);
 
@@ -91,8 +94,10 @@ export default function MainChat(props) {
                 // </>
             ))} 
         </div>
+        
         <div className="message d-flex">
-        <span className="me-2"><Picker onClick={(e)=> props.setText(props.text +  e.native)}></Picker></span>
+        
+        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>setEmoji(!emoji)}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
           <span className="me-2">attachment</span>
           <Form className="w-100" onSubmit={(e)=> {props.handleMessage(e)}}>
             <Form.Control
@@ -105,6 +110,7 @@ export default function MainChat(props) {
           </Form>
   
         </div>
+        {emoji &&<span className="me-2 emoji"><Picker onEmojiClick={(e, emojiObj)=> {props.setText(props.text +  emojiObj.emoji)}}></Picker></span>}
       </>
     </Col>
   );

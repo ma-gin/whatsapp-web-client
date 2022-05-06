@@ -119,65 +119,65 @@ export default function MainChat(props) {
             <p className="normal-p">{recipient.username}</p>
           </div>
         )}
-        <div onClick={()=>{setEmoji(false); setAttachment(false)}} className="chatBack scrollerChat p-4">
+        <div onClick={() => { setEmoji(false); setAttachment(false) }} className="chatBack scrollerChat p-4">
           {allMessages &&
             allMessages.map((message, i) => (
               <>
-              <div
-                key={i}
-                className={
-                  message.sender === loggedUser._id
-                    ? "message-sent p-2 mb-2 d-flex"
-                    : "message-received  p-2 mb-2 d-flex"
-                }>
-                <p className="msg">{message.content.text}</p>
-                <p
-                  style={{
-                    fontSize: "10px",
-                    width: "15px",
-                    marginTop: "auto",
-                    marginRight: "9px",
-                    minWidth: "30px",
-                  }}>
-                  {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
-                    ":" +
-                    message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
-                </p>
-              </div>
-             { message.content.media && <div
-                key={i}
-                className={
-                  message.sender === loggedUser._id
-                    ? "message-sent p-2 mb-2 d-flex"
-                    : "message-received  p-2 mb-2 d-flex"
-                } >
-                <img className="msg" alt="backend" style={{ objectFit:"contain", position:"center", maxHeight:"150px", minHeight:"150px"} } src={message.content.media}></img>
-                <p
-                  style={{
-                    fontSize: "10px",
-                    width: "15px",
-                    marginTop: "auto",
-                    marginRight: "9px",
-                    minWidth: "30px",
-                  }}>
-                  {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
-                    ":" +
-                    message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
-                </p>
-              </div>}
+                <div
+                  key={i}
+                  className={
+                    message.sender === loggedUser._id
+                      ? "message-sent p-2 mb-2 d-flex"
+                      : "message-received  p-2 mb-2 d-flex"
+                  }>
+                  <p className="msg">{message.content.text}</p>
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      width: "15px",
+                      marginTop: "auto",
+                      marginRight: "9px",
+                      minWidth: "30px",
+                    }}>
+                    {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
+                      ":" +
+                      message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
+                  </p>
+                </div>
+                {message.content.media && <div
+                  key={i}
+                  className={
+                    message.sender === loggedUser._id
+                      ? "message-sent p-2 mb-2 d-flex"
+                      : "message-received  p-2 mb-2 d-flex"
+                  } >
+                  <img className="msg" alt="backend" style={{ objectFit: "contain", position: "center", maxHeight: "150px", minHeight: "150px" }} src={message.content.media}></img>
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      width: "15px",
+                      marginTop: "auto",
+                      marginRight: "9px",
+                      minWidth: "30px",
+                    }}>
+                    {message.createdAt.split("T")[1].split(".")[0].split(":")[0] +
+                      ":" +
+                      message.createdAt.split("T")[1].split(".")[0].split(":")[1]}
+                  </p>
+                </div>}
               </>
             ))}
 
-          {/* {props.messages &&
-                props.messages.map((message, i) => (
-                  <div key={i} className={props.socketMess && props.socketMess.sender !== loggedUser._id ?  "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
-                ))}  */}
-               
+          {props.messages &&
+            props.messages.map((message, i) => (
+              <div key={i} className={!!message.sender && message.sender !== loggedUser._id ? "message-received   p-2 mb-2" : " message-sent p-2 mb-2"}>{message.content.text}</div>
+            ))}
+
         </div>
         <div className="message mb-1 d-flex align-items-center mt-1">
-        <div> <span style={{color: "coral", fontSize: "30px"}} onClick={()=>{setEmoji(!emoji); setAttachment(false)}}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
-       <span style={{color: "coral", fontSize: "30px"}} onClick={()=>{setAttachment(!attachment); setEmoji(false)}}><BsPaperclip></BsPaperclip></span>
-          <Form onClick={()=>setEmoji(false) } className="w-100" onSubmit={(e)=> {if(props.text){props.handleMessage(e); setAttachment(false)}else{e.preventDefault(); setAttachment(false); alert("insert some text") }}}>
+          <div> <span style={{ color: "coral", fontSize: "30px" }} onClick={() => { setEmoji(!emoji); setAttachment(false) }}><BsFillEmojiSmileFill></BsFillEmojiSmileFill></span></div>
+          <span style={{ color: "coral", fontSize: "30px" }} onClick={() => { setAttachment(!attachment); setEmoji(false) }}><BsPaperclip></BsPaperclip></span>
+          <Form onClick={() => setEmoji(false)} className="w-100" onSubmit={(e) => { if (props.text) { props.handleMessage(e); setAttachment(false) } else { e.preventDefault(); setAttachment(false); alert("insert some text") } }}>
             <Form.Control
               //disabled={!loggedIn}
               type="text"
@@ -196,10 +196,10 @@ export default function MainChat(props) {
                 props.setText(props.text + emojiObj.emoji)
               }}></Picker>
           </span>
-          
+
         )}
         {attachment &&
-         <input type="file" id="media-input" className="me-2 emoji" onChange={(e)=> uploadMedia(e)}></input>
+          <input type="file" id="media-input" className="me-2 emoji" onChange={(e) => uploadMedia(e)}></input>
         }
       </>
     </Col>
